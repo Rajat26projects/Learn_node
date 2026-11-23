@@ -22,6 +22,49 @@ const server=http.createServer((req,res)=>{
       res.end(`<h1>404 page '${req.url} not found </h1>`);
     }
   }
+
+  //---------------------POST Method------------------------------
+  else if(req.method=="POST"){
+    if(req.url=="/register"){
+      // console.log(req);
+      // res.writeHead(201,{'content-type':"text/html"});
+      // res.end(`<h1>Data successfully added in our database </h1>:<br> ${req.body}`); 
+      let body="";
+req.on('data',chunk=>{
+  body+=chunk.toString();
+  console.log(body);
+  const bdy=JSON.parse(body);
+  const {username,password}=bdy;
+  console.log(username);
+  console.log(password);
+});
+
+req.on('end',()=>{
+  res.writeHead(200,{"content-type":"application/JSON"});
+
+  res.end(JSON.stringify({message:'Form data submitted',data:body}));
+});
+    }
+  }
+
+  //--------------------------PUT Method------------------------------
+  else if(req.method=="PUT"){
+
+  }
+
+  //---------------------------PATCH Method---------------------------
+  else if(req.method=="PATCH"){
+
+  }
+
+  //-------------------------------DELETE Method-----------------------
+  else if(req.method=="DELETE"){
+
+  }
+
+  else{
+
+  }
 })
 
 //call listen function to start server
